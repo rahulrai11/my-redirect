@@ -38,7 +38,7 @@ const RedirectingComponent = () => {
   return (
     <div>
       <p>
-        Redirecting...! If nothing happens,{" "}
+        Welcome Redirecting...! If nothing happens,{" "}
         <a href="myapp://home">click here...!</a>.
       </p>
     </div>
