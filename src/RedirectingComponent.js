@@ -6,7 +6,7 @@ const RedirectingComponent = () => {
       const appScheme = "myapp://home"; // Custom URL scheme
       const appStoreLink = "https://apps.apple.com/in/app/bastian-customer-parts-portal/id6473263265"; // iOS App Store URL
       const playStoreWeb = "https://play.google.com/store/apps/details?id=com.bastianqrapp"; // Play Store URL
-      const universalLink = "https://rahulrai11.github.io/app-redirect/"; // Replace with your Universal Link
+      const universalLink = "https://rahulrai11.github.io/my-redirect/"; // Replace with your Universal Link
 
       const userAgent = navigator.userAgent || navigator.vendor || window.opera;
 
