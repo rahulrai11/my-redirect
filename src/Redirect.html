@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecting...</title>
+    <script>
+        function openApp() {
+            var appScheme = "myapp://home"; // Custom URL scheme
+            var appStoreLink = "https://apps.apple.com/in/app/bastian-customer-parts-portal/id6473263265"; // iOS App Store URL
+            var playStoreWeb = "https://play.google.com/store/apps/details?id=com.bastianqrapp"; // Play Store URL
+            var universalLink = "https://rahulrai11.github.io/app-redirect/"; // Replace with your Universal Link
+
+            var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+            // Open the app using Universal Links for iOS
+            if (/iPhone|iPad|iPod/i.test(userAgent)) {
+                window.location.href = universalLink;
+
+                // Redirect to App Store if the app is not installed
+                setTimeout(function () {
+                    window.location.href = appStoreLink;
+                }, 1000);
+            } 
+            // Handle Android redirection
+            else if (/android/i.test(userAgent)) {
+                // Attempt to open the app via scheme
+                var link = document.createElement('a');
+                link.href = appScheme;
+                link.style.display = "none";
+                document.body.appendChild(link);
+                link.click();
+
+                // Redirect to Play Store if app is not installed
+                setTimeout(function () {
+                    window.location.href = playStoreWeb;
+                }, 500);
+            } 
+            // Default fallback for other devices
+            else {
+                window.location.href = playStoreWeb;
+            }
+        }
+
+        window.onload = openApp;
+    </script>
+</head>
+<body>
+    <p>Redirecting...! If nothing happens, <a href="myapp://home">click here...</a>.</p>
+</body>
+</html>
