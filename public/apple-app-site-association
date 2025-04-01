@@ -1,0 +1,15 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appIDs": ["HPPVVYWT8W.com.bastiansolution"],
+        "paths": ["*"]
+      },
+      {
+        "appIDs": ["HPPVVYWT8W.com.bastiansolution"],
+        "paths": ["/my-redirect/*"]
+      }
+    ]
+  }
+}
