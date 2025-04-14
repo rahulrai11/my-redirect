@@ -42,7 +42,13 @@
             // document.body.appendChild(link);
             // link.click();
 
-            window.location.href = customURL;
+            // window.location.href = customURL;
+
+              // Open the app using a hidden iframe
+              var iframe = document.createElement("iframe");
+            iframe.style.display = "none";
+            iframe.src = customURL;
+            document.body.appendChild(iframe);
 
             // After timeout, assume app not installed, redirect to store
             if (!appOpened) { // Only redirect if app didn't open
