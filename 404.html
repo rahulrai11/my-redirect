@@ -25,34 +25,18 @@
         const isAndroid = /Android/i.test(userAgent);
         const isiOS = /iPhone|iPad|iPod/i.test(userAgent);
 
-        let appOpened = false;
-
-        document.addEventListener("visibilitychange", function () {
-            if (document.hidden) {
-                appOpened = true; // App opened successfully, so prevent fallback
-            }
-        });
-
         // Start redirect
         window.onload = function () {
-            // Open the app using a hidden link
+             // Open the app using a hidden link
             //  var link = document.createElement('a');
             // link.href = customURL;
             // link.style.display = "none";
             // document.body.appendChild(link);
             // link.click();
 
-            // window.location.href = customURL;
-
-              // Open the app using a hidden iframe
-              var iframe = document.createElement("iframe");
-            iframe.style.display = "none";
-            iframe.src = customURL;
-            document.body.appendChild(iframe);
+            window.location.href = customURL;
 
             // After timeout, assume app not installed, redirect to store
-            if (!appOpened) { // Only redirect if app didn't open
-
             setTimeout(() => {
                 if (isAndroid) {
                     window.location.href = playStoreURL;
@@ -62,15 +46,12 @@
                     window.location.href = appStoreURL;
                 }
             }, 4000); // 4 seconds fallback
-
-        }
         };
     </script>
 </head>
 
 <body>
-    <p>If the Bastian app is installed, it will open automatically. Otherwise, you will be redirected to download it
-        shortly.</p>
+    <p>If the Bastian app is installed, it will open automatically. Otherwise, you will be redirected to download it shortly.</p>
 </body>
 
 </html>
