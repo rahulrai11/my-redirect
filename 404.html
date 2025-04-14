@@ -28,13 +28,13 @@
         // Start redirect
         window.onload = function () {
              // Open the app using a hidden link
-            //  var link = document.createElement('a');
-            // link.href = customURL;
-            // link.style.display = "none";
-            // document.body.appendChild(link);
-            // link.click();
-            
-            window.location.href = customURL;
+             var link = document.createElement('a');
+            link.href = customURL;
+            link.style.display = "none";
+            document.body.appendChild(link);
+            link.click();
+
+            // window.location.href = customURL;
 
             // After timeout, assume app not installed, redirect to store
             setTimeout(() => {
