@@ -28,12 +28,14 @@
         // Start redirect
         window.onload = function () {
              // Open the app using a hidden link
-             var link = document.createElement('a');
-            link.href = customURL;
-            link.style.display = "none";
-            document.body.appendChild(link);
-            link.click();
-            // window.location.href = customURL;
+            //  var link = document.createElement('a');
+            // link.href = customURL;
+            // link.style.display = "none";
+            // document.body.appendChild(link);
+            // link.click();
+            window.location.href = customURL;
+
+            // return
 
             // After timeout, assume app not installed, redirect to store
             setTimeout(() => {
@@ -44,7 +46,7 @@
                 } else {
                     window.location.href = playStoreURL;
                 }
-            }, 3000); // 1/2 seconds fallback
+            }, 5000); // 1/2 seconds fallback
         };
     </script>
 </head>
