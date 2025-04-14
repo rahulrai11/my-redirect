@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -27,7 +28,7 @@
                 } else if (/iPhone|iPad|iPod/i.test(userAgent)) {
                     window.location.href = appStoreLink;
                 } else {
-                    // window.location.href = playStoreWeb;
+                    window.location.href = appStoreURL;
                 }
             }, 3000);
         }
@@ -35,9 +36,11 @@
         window.onload = openApp;
     </script>
 </head>
+
 <body>
     <p>Redirecting... If nothing happens, <a href="myapp://open">click here</a>.</p>
 </body>
+
 </html>
 
 
