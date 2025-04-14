@@ -33,9 +33,13 @@
             // link.style.display = "none";
             // document.body.appendChild(link);
             // link.click();
-            window.location.href = customURL;
 
-            // return
+            var iframe = document.createElement("iframe");
+            iframe.style.display = "none";
+            iframe.src = customURL;
+            document.body.appendChild(iframe);
+
+            // window.location.href = customURL;
 
             // After timeout, assume app not installed, redirect to store
             setTimeout(() => {
