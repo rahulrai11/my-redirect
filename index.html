@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecting...</title>
+    <script>
+        function openApp() {
+            var appScheme = "myapp://"; // Ensure this matches your AndroidManifest.xml
+            var playStoreWeb = "https://play.google.com/store/apps/details?id=com.bastianqrapp";
+            var appStoreLink = "https://apps.apple.com/in/app/bastian-customer-parts-portal/id6473263265"; // Replace with actual App Store link
+
+            var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+            // Open the app using a hidden link
+            var link = document.createElement('a');
+            link.href = appScheme;
+            link.style.display = "none";
+            document.body.appendChild(link);
+            link.click();
+
+            // If app is not installed, redirect after 2 seconds
+            setTimeout(function () {
+                if (/android/i.test(userAgent)) {
+                    //window.location.href = playStoreWeb;
+                    window.location.href = "intent://play.google.com/store/apps/details?id=com.bastianqrapp#Intent;package=com.android.vending;scheme=https;end;";
+                } else if (/iPhone|iPad|iPod/i.test(userAgent)) {
+                    window.location.href = appStoreLink;
+                } else {
+                    window.location.href = playStoreWeb;
+                }
+            }, 1500);
+        }
+
+        window.onload = openApp;
+    </script>
+</head>
+<body>
+    <p>Redirecting... If nothing happens, <a href="myapp://open">click here</a>.</p>
+</body>
+</html>
+
+
+<!-- <script type="text/javascript">
+    // const schemeURL = "myapp://productId/22-100525-07-02-71892";`
+    const schemeURL = " myapp://";
+    // const path = window.location.pathname;
+    // const schemeURL = `myapp://${path}`;
+
+    var androidStore = "https://play.google.com/store/apps/details?id=com.bastianqrapp";
+    var iosStore = "https://apps.apple.com/in/app/bastian-customer-parts-portal/id6473263265"; // Replace with actual App Store link
+
+    function openApp() {
+        const now = Date.now();
+        window.location = schemeURL;
+
+        setTimeout(() => {
+            if (Date.now() - now < 2000) {
+                window.location = /iPhone|iPad|iPod/.test(navigator.userAgent) ? iosStore : androidStore;
+            }
+        }, 1500);
+    }
+
+    openApp();
+</script> -->
