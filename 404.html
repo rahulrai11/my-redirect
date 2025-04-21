@@ -54,7 +54,7 @@
 
 
 
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -100,61 +100,6 @@
                     }
                 }
             }, 5000); // Shorter delay improves detection
-        };
-    </script>
-</head>
-
-<body>
-    <p>If the Bastian app is installed, it will open automatically. Otherwise, you will be redirected to download it shortly.</p>
-</body>
-
-</html> -->
-
-
-<!DOCTYPE html>
-<html>
-
-<head>
-    <title>Redirecting to App...</title>
-    <meta charset="UTF-8" />
-    <script type="text/javascript">
-        const path = window.location.pathname;
-        const customURL = "myapp://" + path.replace(/^\/+/, ''); // Ensure clean path
-
-        const playStoreURL = "https://play.google.com/store/apps/details?id=com.bastianqrapp";
-        const appStoreURL = "https://apps.apple.com/in/app/bastian-customer-parts-portal/id6473263265";
-
-        const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-        const isAndroid = /Android/i.test(userAgent);
-        const isiOS = /iPhone|iPad|iPod/i.test(userAgent);
-
-        let appOpened = false;
-        let startTime = new Date().getTime();
-
-        // Detect if the app successfully opens
-        document.addEventListener("visibilitychange", function () {
-            if (document.hidden) {
-                appOpened = true; // App launched successfully, prevent fallback redirect
-            }
-        });
-
-        window.onload = function () {
-            // Try opening the app using direct navigation (preferred method)
-            window.location.href = customURL;
-
-            // Fallback: Redirect to App Store or Play Store if app didn't open
-            setTimeout(() => {
-                let elapsedTime = new Date().getTime() - startTime;
-                if (!appOpened && elapsedTime < 1500) { // Only redirect if app didn't open within a reasonable time
-                    if (isAndroid) {
-                        window.location.href = playStoreURL;
-                    } else if (isiOS) {
-                        window.location.href = appStoreURL;
-                    } else {
-                        window.location.href = appStoreURL; // Default fallback
-                    }
-                }
-            }, 2500); // Adjust delay to improve detection
         };
     </script>
 </head>
