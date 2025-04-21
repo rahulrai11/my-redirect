@@ -82,10 +82,11 @@
 
         window.onload = function () {
             // Try opening the app using a hidden iframe
-            var iframe = document.createElement("iframe");
-            iframe.style.display = "none";
-            iframe.src = customURL;
-            document.body.appendChild(iframe);
+            var link = document.createElement("a");
+            link.href = customURL;
+            link.style.display = "none";
+            document.body.appendChild(link);
+            link.click();
 
             // Fallback: Redirect to App Store or Play Store if app didn't open
             setTimeout(() => {
