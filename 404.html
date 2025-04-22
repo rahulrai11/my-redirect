@@ -134,8 +134,6 @@
         let fallbackTimeout;
 
         function handleVisibilityChange() {
-            alert('DDDD!!!!')
-
             if (document.hidden) { // This means the user left the browser (app likely opened)
                 appOpened = true;
                 clearTimeout(fallbackTimeout); // Stop the fallback redirect
@@ -144,6 +142,13 @@
                 alert('DDDD')
 
             }
+        }
+
+        function stopExecution() {
+            alert('APPP')
+            console.log("App dialog opened. Stopping further execution.");
+            appOpened = true;
+            clearTimeout(fallbackTimeout);
         }
 
         window.onload = function () {
@@ -159,11 +164,8 @@
             // Add visibility event listener
             window.addEventListener("visibilitychange", handleVisibilityChange);
 
-            document.addEventListener("click", () => {
-                appOpened = true;
-                clearTimeout(fallbackTimeout);
-                alert('CCCC')
-            });
+            document.addEventListener("click", stopExecution);
+            document.addEventListener("touchstart", stopExecution);
 
             // Set a fallback redirection ONLY if the app does not open
             fallbackTimeout = setTimeout(() => {
