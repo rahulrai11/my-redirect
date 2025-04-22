@@ -129,12 +129,13 @@
         const isAndroid = /Android/i.test(userAgent);
         const isiOS = /iPhone|iPad|iPod|Mac/i.test(userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 
-        let appOpened = true;
+        let appOpened = false;
         let fallbackTimeout;
 
         function handleVisibilityChange() {
+            appOpened = true;
             if (document.hidden) { // This means the user left the browser (app likely opened)
-                appOpened = false;
+                appOpened = true;
                 clearTimeout(fallbackTimeout); // Stop the fallback redirect
                 window.removeEventListener("visibilitychange", handleVisibilityChange); // Cleanup listener
             }
@@ -162,7 +163,7 @@
                         window.location.href = appStoreURL;
                     }
                 }
-            }, 1000); // Slightly increased delay for better detection
+            }, 5000); // Slightly increased delay for better detection
         };
     </script>
 </head>
