@@ -118,6 +118,9 @@
 <head>
     <title>Redirecting to App...</title>
     <meta charset="UTF-8" />
+
+    <button onclick="openApp()">Open App</button>
+
     <script type="text/javascript">
         const path = window.location.pathname;
         const customURL = "myapp://" + path.replace(/^\/+/, ''); // Ensure clean path
@@ -139,7 +142,6 @@
                 window.removeEventListener("visibilitychange", handleVisibilityChange); // Cleanup listener
             }
         }
-        <button onclick="openApp()">Open App</button>
 
         window.onload = function () {
             // Try opening the app using direct navigation
@@ -169,7 +171,7 @@
 </head>
 
 <body>
-    <p>If the Bastian app is installed, it will open automatically. Otherwise, you will be redirected to download it shortly.</p>
+    <p>If the Bastian app is installed, it will open automatically. Otherwise, you will be redirected to download it shortly..</p>
 </body>
 
 </html>
