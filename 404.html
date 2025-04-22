@@ -119,8 +119,6 @@
     <title>Redirecting to App...</title>
     <meta charset="UTF-8" />
 
-    <button onclick="openApp()">Open App</button>
-
     <script type="text/javascript">
         const path = window.location.pathname;
         const customURL = "myapp://" + path.replace(/^\/+/, ''); // Ensure clean path
@@ -136,7 +134,7 @@
         let fallbackTimeout;
 
         function handleVisibilityChange() {
-            if (document.hidden) { // This means the user left the browser (app likely opened)
+            if (document.hidden) { // The user left the browser, meaning they likely opened the app
                 appOpened = true;
                 clearTimeout(fallbackTimeout); // Stop the fallback redirect
                 window.removeEventListener("visibilitychange", handleVisibilityChange); // Cleanup listener
@@ -144,34 +142,45 @@
         }
 
         window.onload = function () {
-            // Try opening the app using direct navigation
+            console.log("Attempting to open app:", customURL);
+
             window.location.href = customURL;
 
-            // Alternative iframe approach for better reliability
             let iframe = document.createElement("iframe");
             iframe.style.display = "none";
             iframe.src = customURL;
             document.body.appendChild(iframe);
 
-            // Add visibility event listener
+            // Listen for visibility change (helps detect when the user interacts with the "Open App" dialog)
             window.addEventListener("visibilitychange", handleVisibilityChange);
 
-            // Set a fallback redirection ONLY if the app does not open
+            // Also stop the redirect if the user clicks anywhere on the page
+            document.addEventListener("click", () => {
+                appOpened = true;
+                clearTimeout(fallbackTimeout);
+            });
+
             fallbackTimeout = setTimeout(() => {
                 if (!appOpened) {
+                    console.log("App not detected, redirecting to store.");
                     if (isAndroid) {
-                        window.location.href = playStoreURL;
+                        window.location.replace(playStoreURL);
                     } else if (isiOS) {
-                        window.location.href = appStoreURL;
+                        window.location.replace(appStoreURL);
                     }
+                } else {
+                    console.log("App opened, no redirect.");
                 }
-            }, 5000); // Slightly increased delay for better detection
+            }, 9000); // Increased timeout for user interaction
         };
+
+
     </script>
 </head>
 
 <body>
-    <p>If the Bastian app is installed, it will open automatically. Otherwise, you will be redirected to download it shortly..</p>
+    <p>If the Bastian app is installed, it will open automatically. Otherwise, you will be redirected to download it
+        shortly..</p>
 </body>
 
 </html>
