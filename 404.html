@@ -142,26 +142,21 @@
         }
 
         window.onload = function () {
-            // Try opening the app using direct navigation
-            // window.location.href = customURL;
-
-            function openApp() {
+            try {
+                // Try opening the app using direct navigation
                 window.location.href = customURL;
-                console.log("App opening..."); // If this executes, redirection worked
-                alert("App opening...")
-                return; // Stops execution
-                alert("his won't run!")
+
+                // Alternative iframe approach for better reliability
+                let iframe = document.createElement("iframe");
+                iframe.style.display = "none";
+                iframe.src = customURL;
+                document.body.appendChild(iframe);
+
+                return
+            } catch (error) {
 
             }
 
-            openApp();
-
-
-            // Alternative iframe approach for better reliability
-            let iframe = document.createElement("iframe");
-            iframe.style.display = "none";
-            iframe.src = customURL;
-            document.body.appendChild(iframe);
 
             // Add visibility event listener
             window.addEventListener("visibilitychange", handleVisibilityChange);
