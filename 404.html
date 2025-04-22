@@ -133,36 +133,36 @@
         let fallbackTimeout;
 
         function handleVisibilityChange() {
-            if (document.hidden) { // The user left the browser, likely opened the app
+            if (document.hidden) { // This means the user left the browser (app likely opened)
                 appOpened = true;
-                clearTimeout(fallbackTimeout); // Stop fallback redirect
+                clearTimeout(fallbackTimeout); // Stop the fallback redirect
                 window.removeEventListener("visibilitychange", handleVisibilityChange); // Cleanup listener
             }
         }
 
         window.onload = function () {
-            // Try opening the app via direct navigation
+            // Try opening the app using direct navigation
             window.location.href = customURL;
 
-            // Use an alternative iframe approach
+            // Alternative iframe approach for better reliability
             let iframe = document.createElement("iframe");
             iframe.style.display = "none";
             iframe.src = customURL;
             document.body.appendChild(iframe);
 
-            // Listen for visibility change to detect if the user opened the app
+            // Add visibility event listener
             window.addEventListener("visibilitychange", handleVisibilityChange);
 
-            // Add a delay before fallback redirection (adjusted for user interaction)
+            // Set a fallback redirection ONLY if the app does not open
             fallbackTimeout = setTimeout(() => {
-                if (!appOpened) { // Redirect only if app wasn't opened
+                if (!appOpened && !document.hidden) {
                     if (isAndroid) {
-                        window.location.replace(playStoreURL);
+                        window.location.href = playStoreURL;
                     } else if (isiOS) {
-                        window.location.replace(appStoreURL);
+                        window.location.href = appStoreURL;
                     }
                 }
-            }, 9000); // Increased delay to accommodate user clicking "Open" after some time
+            }, 5000); // Slightly increased delay for better detection
         };
     </script>
 </head>
@@ -172,4 +172,3 @@
 </body>
 
 </html>
-
