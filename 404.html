@@ -138,33 +138,17 @@
                 appOpened = true;
                 clearTimeout(fallbackTimeout); // Stop the fallback redirect
                 window.removeEventListener("visibilitychange", handleVisibilityChange); // Cleanup listener
-                document.close();
-                alert('DDDD')
-
             }
         }
 
-        function stopExecution() {
-            alert('APPP')
-            console.log("App dialog opened. Stopping further execution.");
-            appOpened = true;
-            clearTimeout(fallbackTimeout);
-        }
-
         window.onload = function () {
-            // Set a fallback redirection ONLY if the app does not open
-            fallbackTimeout = setTimeout(() => {
-                if (!appOpened) {
-                    if (isAndroid) {
-                        window.location.href = playStoreURL;
-                    } else if (isiOS) {
-                        window.location.href = appStoreURL;
-                    }
-                }
-            }, 5000); // Slightly increased delay for better detection
-
             // Try opening the app using direct navigation
             window.location.href = customURL;
+
+            let dd =  window.location.href = customURL;
+            if (dd) {
+                handleVisibilityChange()
+            }
 
             // Alternative iframe approach for better reliability
             let iframe = document.createElement("iframe");
@@ -175,17 +159,22 @@
             // Add visibility event listener
             window.addEventListener("visibilitychange", handleVisibilityChange);
 
-            document.addEventListener("click", stopExecution);
-            window.addEventListener("touchstart", stopExecution);
-
-
+            // Set a fallback redirection ONLY if the app does not open
+            fallbackTimeout = setTimeout(() => {
+                if (!appOpened) {
+                    if (isAndroid) {
+                        window.location.href = playStoreURL;
+                    } else if (isiOS) {
+                        window.location.href = appStoreURL;
+                    }
+                }
+            }, 5000); // Slightly increased delay for better detection
         };
     </script>
 </head>
 
 <body>
-    <p>If the Bastian app is installed, it will open automatically. Otherwise, you will be redirected to download it
-        shortly.</p>
+    <p>If the Bastian app is installed, it will open automatically. Otherwise, you will be redirected to download it shortly.</p>
 </body>
 
 </html>
