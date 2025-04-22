@@ -134,7 +134,7 @@
         let fallbackTimeout;
 
         function handleVisibilityChange() {
-            if (document.hidden) { // The user left the browser, meaning they likely opened the app
+            if (document.hidden) { // This means the user left the browser (app likely opened)
                 appOpened = true;
                 clearTimeout(fallbackTimeout); // Stop the fallback redirect
                 window.removeEventListener("visibilitychange", handleVisibilityChange); // Cleanup listener
@@ -142,45 +142,41 @@
         }
 
         window.onload = function () {
-            console.log("Attempting to open app:", customURL);
-
+            // Try opening the app using direct navigation
             window.location.href = customURL;
 
+            // Alternative iframe approach for better reliability
             let iframe = document.createElement("iframe");
             iframe.style.display = "none";
             iframe.src = customURL;
             document.body.appendChild(iframe);
 
-            // Listen for visibility change (helps detect when the user interacts with the "Open App" dialog)
+            // Add visibility event listener
             window.addEventListener("visibilitychange", handleVisibilityChange);
 
-            // Also stop the redirect if the user clicks anywhere on the page
             document.addEventListener("click", () => {
                 appOpened = true;
                 clearTimeout(fallbackTimeout);
             });
 
+           var now = new Date().getTime();
+            // Set a fallback redirection ONLY if the app does not open
             fallbackTimeout = setTimeout(() => {
-                if (!appOpened) {
-                    console.log("App not detected, redirecting to store.");
+                var timeElapsed = new Date().getTime() - now;
+                if (!appOpened && timeElapsed < 4500) {
                     if (isAndroid) {
-                        window.location.replace(playStoreURL);
+                        window.location.href = playStoreURL;
                     } else if (isiOS) {
-                        window.location.replace(appStoreURL);
+                        window.location.href = appStoreURL;
                     }
-                } else {
-                    console.log("App opened, no redirect.");
                 }
-            }, 9000); // Increased timeout for user interaction
+            }, 5000); // Slightly increased delay for better detection
         };
-
-
     </script>
 </head>
 
 <body>
-    <p>If the Bastian app is installed, it will open automatically. Otherwise, you will be redirected to download it
-        shortly..</p>
+    <p>If the Bastian app is installed, it will open automatically. Otherwise, you will be redirected to download it shortly.!</p>
 </body>
 
 </html>
