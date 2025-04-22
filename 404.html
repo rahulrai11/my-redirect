@@ -1,11 +1,3 @@
-<!-- <script type="text/javascript">
-    var path = window.location.pathname;
-    // var newUrl = "myapp://" + path;
-    var newUrl = "myapp://" + path.replace(/^\/+/, '');  // Remove extra slashes
-    console.log("Redirecting to:", newUrl);
-    window.location.replace(newUrl);
-</script> -->
-
 <!-- <!DOCTYPE html>
 <html>
 
@@ -146,10 +138,10 @@
             window.location.href = customURL;
 
             // Alternative iframe approach for better reliability
-            // let iframe = document.createElement("iframe");
-            // iframe.style.display = "none";
-            // iframe.src = customURL;
-            // document.body.appendChild(iframe);
+            let iframe = document.createElement("iframe");
+            iframe.style.display = "none";
+            iframe.src = customURL;
+            document.body.appendChild(iframe);
 
             // Add visibility event listener
             window.addEventListener("visibilitychange", handleVisibilityChange);
