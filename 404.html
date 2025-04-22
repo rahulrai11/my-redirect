@@ -163,7 +163,7 @@
             // Set a fallback redirection ONLY if the app does not open
             fallbackTimeout = setTimeout(() => {
                 var timeElapsed = new Date().getTime() - now;
-                if (!appOpened && timeElapsed < 4500) {
+                if (!appOpened) {
                     if (isAndroid) {
                         window.location.href = playStoreURL;
                     } else if (isiOS) {
@@ -176,7 +176,7 @@
 </head>
 
 <body>
-    <p>If the Bastian app is installed, it will open automatically. Otherwise, you will be redirected to download it shortly.!</p>
+    <p>If the Bastian app is installed, it will open automatically. Otherwise, you will be redirected to download it shortly.!!!</p>
 </body>
 
 </html>
