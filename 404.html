@@ -140,23 +140,16 @@
                 window.removeEventListener("visibilitychange", handleVisibilityChange); // Cleanup listener
             }
         }
-
+        
         window.onload = function () {
-            try {
-                // Try opening the app using direct navigation
-                window.location.href = customURL;
+            // Try opening the app using direct navigation
+            window.location.href = customURL;
 
-                // Alternative iframe approach for better reliability
-                let iframe = document.createElement("iframe");
-                iframe.style.display = "none";
-                iframe.src = customURL;
-                document.body.appendChild(iframe);
-
-                return
-            } catch (error) {
-
-            }
-
+            // Alternative iframe approach for better reliability
+            // let iframe = document.createElement("iframe");
+            // iframe.style.display = "none";
+            // iframe.src = customURL;
+            // document.body.appendChild(iframe);
 
             // Add visibility event listener
             window.addEventListener("visibilitychange", handleVisibilityChange);
@@ -176,8 +169,7 @@
 </head>
 
 <body>
-    <p>If the Bastian app is installed, it will open automatically. Otherwise, you will be redirected to download it
-        shortly..</p>
+    <p>If the Bastian app is installed, it will open automatically. Otherwise, you will be redirected to download it shortly.</p>
 </body>
 
 </html>
