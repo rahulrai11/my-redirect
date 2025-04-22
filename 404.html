@@ -74,13 +74,22 @@
 
         let appOpened = false;
 
-        // Detect if the app successfully opens
-        document.addEventListener("visibilitychange", function () {
+         // Detect if the app successfully opens
+         const visibilityHandler = () => {
             if (document.hidden) {
-                appOpened = true; // App launched successfully, prevent fallback redirect
+                appOpened = true;
                 clearTimeout(fallbackTimeout); // Stop redirection if app opens
+                window.removeEventListener("visibilitychange", visibilityHandler); // Cleanup
             }
-        });
+        };
+        window.addEventListener("visibilitychange", visibilityHandler);
+        // // Detect if the app successfully opens
+        // document.addEventListener("visibilitychange", function () {
+        //     if (document.hidden) {
+        //         appOpened = true; // App launched successfully, prevent fallback redirect
+        //         clearTimeout(fallbackTimeout); // Stop redirection if app opens
+        //     }
+        // });
 
         window.onload = function () {
             // Try opening the app using a hidden iframe
@@ -120,7 +129,7 @@
 </head>
 
 <body>
-    <p>If the Bastian app is installed, it will open automatically. Otherwise, you will be redirected to download it shortly....@@</p>
+    <p>If the Bastian app is installed, it will open automatically. Otherwise, you will be redirected to download it shortly....</p>
 </body>
 
 </html>
