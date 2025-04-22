@@ -69,7 +69,8 @@
 
         const userAgent = navigator.userAgent || navigator.vendor || window.opera;
         const isAndroid = /Android/i.test(userAgent);
-        const isiOS = /iPhone|iPad|iPod/i.test(userAgent);
+        // const isiOS = /iPhone|iPad|iPod/i.test(userAgent);
+        const isiOS = /iPhone|iPad|iPod|Mac/i.test(userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 
         let appOpened = false;
 
@@ -96,7 +97,7 @@
                     } else if (isiOS) {
                         window.location.href = appStoreURL;
                     } else {
-                        window.location.href = appStoreURL; // Default fallback
+                        // window.location.href = appStoreURL; // Default fallback
                     }
                 }
             }, 5000); // Shorter delay improves detection
@@ -105,7 +106,7 @@
 </head>
 
 <body>
-    <p>If the Bastian app is installed, it will open automatically. Otherwise, you will be redirected to download it shortly....</p>
+    <p>If the Bastian app is installed, it will open automatically. Otherwise, you will be redirected to download it shortly....@@</p>
 </body>
 
 </html>
