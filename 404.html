@@ -119,57 +119,40 @@
     <title>Redirecting to App...</title>
     <meta charset="UTF-8" />
     <script type="text/javascript">
-        const path = window.location.pathname;
-        const customURL = "myapp://" + path.replace(/^\/+/, ''); // Ensure clean path
-
-        const playStoreURL = "https://play.google.com/store/apps/details?id=com.bastianqrapp";
-        const appStoreURL = "https://apps.apple.com/in/app/bastian-customer-parts-portal/id6473263265";
-
-        const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-        const isAndroid = /Android/i.test(userAgent);
-        const isiOS = /iPhone|iPad|iPod|Mac/i.test(userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-
+        const customURL = "myapp://" + window.location.pathname.replace(/^\/+/, ''); // Deep link
         let appOpened = false;
         let fallbackTimeout;
 
+        // Detect app opening by checking if the user navigates away
         function handleVisibilityChange() {
-            appOpened = true;
-            if (document.hidden) { // This means the user left the browser (app likely opened)
+            if (document.hidden) {
                 appOpened = true;
-                clearTimeout(fallbackTimeout); // Stop the fallback redirect
-                window.removeEventListener("visibilitychange", handleVisibilityChange); // Cleanup listener
+                clearTimeout(fallbackTimeout); // Cancel fallback if app is opened
             }
         }
 
-        window.onload = function () {
-            // Try opening the app using direct navigation
-            window.location.href = customURL;
+        window.addEventListener("visibilitychange", handleVisibilityChange);
 
-            // Alternative iframe approach for better reliability
-            let iframe = document.createElement("iframe");
-            iframe.style.display = "none";
-            iframe.src = customURL;
-            document.body.appendChild(iframe);
+        // Try opening the app directly
+        window.location.href = customURL;
 
-            // Add visibility event listener
-            window.addEventListener("visibilitychange", handleVisibilityChange);
-
-            // Set a fallback redirection ONLY if the app does not open
-            fallbackTimeout = setTimeout(() => {
-                if (!appOpened) {
-                    if (isAndroid) {
-                        window.location.href = playStoreURL;
-                    } else if (isiOS) {
-                        window.location.href = appStoreURL;
-                    }
+        // Fallback redirect ONLY if app doesn't open
+        fallbackTimeout = setTimeout(() => {
+            if (!appOpened) {
+                if (/Android/i.test(navigator.userAgent)) {
+                    window.location.href = "https://play.google.com/store/apps/details?id=com.bastianqrapp";
+                } else if (/iPhone|iPad|iPod|Mac/i.test(navigator.userAgent)) {
+                    window.location.href = "https://apps.apple.com/in/app/bastian-customer-parts-portal/id6473263265";
                 }
-            }, 5000); // Slightly increased delay for better detection
-        };
+            }
+        }, 8000); // Allow extra time before fallback
+
     </script>
 </head>
 
 <body>
-    <p>If the Bastian app is installed, it will open automatically. Otherwise, you will be redirected to download it shortly..!</p>
+    <p>If the Bastian app is installed, it will open automatically. Otherwise, you will be redirected to download it
+        shortly..!!</p>
 </body>
 
 </html>
