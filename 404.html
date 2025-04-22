@@ -74,62 +74,45 @@
 
         let appOpened = false;
 
-         // Detect if the app successfully opens
-         const visibilityHandler = () => {
+        // Detect if the app successfully opens
+        document.addEventListener("visibilitychange", function () {     
+            appOpened = true; // App launched successfully, prevent fallback redirect       
             if (document.hidden) {
-                appOpened = true;
-                clearTimeout(fallbackTimeout); // Stop redirection if app opens
-                window.removeEventListener("visibilitychange", visibilityHandler); // Cleanup
+                appOpened = true; // App launched successfully, prevent fallback redirect
+                // clearTimeout(fallbackTimeout); // Stop redirection if app opens
             }
-        };
-        window.addEventListener("visibilitychange", visibilityHandler);
-        // // Detect if the app successfully opens
-        // document.addEventListener("visibilitychange", function () {
-        //     if (document.hidden) {
-        //         appOpened = true; // App launched successfully, prevent fallback redirect
-        //         clearTimeout(fallbackTimeout); // Stop redirection if app opens
-        //     }
-        // });
+        });
 
         window.onload = function () {
             // Try opening the app using a hidden iframe
-            // var link = document.createElement("a");
-            // link.href = customURL;
-            // link.style.display = "none";
-            // document.body.appendChild(link);
-            // link.click();
+            var link = document.createElement("a");
+            link.href = customURL;
+            link.style.display = "none";
+            document.body.appendChild(link);
+            link.click();
 
-            window.location.replace(customURL);
 
-             // Set a fallback redirection ONLY if the app does not open
-             let fallbackTimeout = setTimeout(() => {
-                if (!appOpened) { // Redirect only if app didn't open
-                    if (isAndroid) {
-                        window.location.replace(playStoreURL);
-                    } else if (isiOS) {
-                        window.location.replace(appStoreURL);
+            if (!appOpened) {
+                // Fallback: Redirect to App Store or Play Store if app didn't open
+                setTimeout(() => {
+                    if (!appOpened) { // Redirect only if app didn't open
+                        if (isAndroid) {
+                            window.location.href = playStoreURL;
+                        } else if (isiOS) {
+                            window.location.href = appStoreURL;
+                        } else {
+                            // window.location.href = appStoreURL; // Default fallback
+                        }
                     }
-                }
-            }, 50000); // Adjust delay for better detection
-            
-            // Fallback: Redirect to App Store or Play Store if app didn't open
-            // setTimeout(() => {
-            //     if (!appOpened) { // Redirect only if app didn't open
-            //         if (isAndroid) {
-            //             window.location.href = playStoreURL;
-            //         } else if (isiOS) {
-            //             window.location.href = appStoreURL;
-            //         } else {
-            //             // window.location.href = appStoreURL; // Default fallback
-            //         }
-            //     }
-            // }, 5000); // Shorter delay improves detection
+                }, 5000); // Shorter delay improves detection
+            }
         };
     </script>
 </head>
 
 <body>
-    <p>If the Bastian app is installed, it will open automatically. Otherwise, you will be redirected to download it shortly.</p>
+    <p>If the Bastian app is installed, it will open automatically. Otherwise, you will be redirected to download it
+        shortly.!</p>
 </body>
 
 </html>
