@@ -143,12 +143,19 @@
 
         window.onload = function () {
             // Try opening the app using direct navigation
-            window.location.href = customURL;
+            // window.location.href = customURL;
 
-            let dd =  window.location.href = customURL;
-            if (dd) {
-                handleVisibilityChange()
+            function openApp() {
+                window.location.href = customURL;
+                console.log("App opening..."); // If this executes, redirection worked
+                alert("App opening...")
+                return; // Stops execution
+                alert("his won't run!")
+
             }
+
+            openApp();
+
 
             // Alternative iframe approach for better reliability
             let iframe = document.createElement("iframe");
@@ -174,7 +181,8 @@
 </head>
 
 <body>
-    <p>If the Bastian app is installed, it will open automatically. Otherwise, you will be redirected to download it shortly.</p>
+    <p>If the Bastian app is installed, it will open automatically. Otherwise, you will be redirected to download it
+        shortly..</p>
 </body>
 
 </html>
