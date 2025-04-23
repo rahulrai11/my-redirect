@@ -126,18 +126,16 @@
         let fallbackTimeout;
 
         function handleVisibilityChange() {
-            // if (document.hidden) { // This means the user left the browser (app likely opened)
+            if (document.hidden) { // This means the user left the browser (app likely opened)
                 appOpened = true;
                 clearTimeout(fallbackTimeout); // Stop the fallback redirect
                 window.removeEventListener("visibilitychange", handleVisibilityChange); // Cleanup listener
-            // }
-        }
-
-        function handleVisibilityChange() {
-            appOpened = true;
-            clearTimeout(fallbackTimeout); // Stop the fallback redirect            
+            }
         }
         window.onload = function () {
+
+            <a href="myapp://" id="openAppLink">Open My App</a>
+
             // Try opening the app using direct navigation
             window.location.href = customURL;
 
@@ -147,11 +145,6 @@
             iframe.src = customURL;
             document.body.appendChild(iframe);
 
-            document.addEventListener("pagehide", () => {
-                if (document.hidden) {
-                    markAppOpened()
-                }
-            })
             // Add visibility event listener
             window.addEventListener("visibilitychange", handleVisibilityChange);
 
@@ -164,7 +157,7 @@
                         window.location.href = appStoreURL;
                     }
                 }
-            }, 1500); // Slightly increased delay for better detection
+            }, 5000); // Slightly increased delay for better detection
         };
 
     </script>
@@ -172,7 +165,7 @@
 
 <body>
     <p>If the Bastian app is installed, it will open automatically. Otherwise, you will be redirected to download it
-        shortly.!</p>
+        shortly....</p>
 </body>
 
 </html>
