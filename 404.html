@@ -154,7 +154,7 @@
                 // document.getElementById("time").innerHTML = new Date().toLocaleTimeString();
             }
             // Runs updateTime() every 1000 milliseconds (1 second)
-            setInterval(updateTime, 4000);
+            setInterval(updateTime, 2000);
 
             // Set a fallback redirection ONLY if the app does not open
             fallbackTimeout = setTimeout(() => {
@@ -165,7 +165,7 @@
                         window.location.href = appStoreURL;
                     }
                 }
-            }, 3000); // Slightly increased delay for better detection
+            }, 1000); // Slightly increased delay for better detection
         };
 
         setInterval(() => {
@@ -176,7 +176,7 @@
 
 <body>
     <p>If the Bastian app is installed, it will open automatically. Otherwise, you will be redirected to download it
-        shortly.</p>
+        shortly.@</p>
 </body>
 
 </html>
