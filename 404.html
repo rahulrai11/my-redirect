@@ -137,23 +137,38 @@
 
             if (isAndroid) {
                 window.location.href = playStoreURL;
-                return
             } else if (isiOS) {
                 window.location.href = appStoreURL;
-                return
             }
 
+            fallbackTimeout = setTimeout(() => {
+                if (!appOpened) {
+                    window.location.href = customURL;
+
+                    // Alternative iframe approach for better reliability
+                    let iframe = document.createElement("iframe");
+                    iframe.style.display = "none";
+                    iframe.src = customURL;
+                    document.body.appendChild(iframe);
+
+                    // Add visibility event listener
+                    window.addEventListener("visibilitychange", handleVisibilityChange);
+
+                }
+            }, 500);
+
+
             // Try opening the app using direct navigation
-            window.location.href = customURL;
+            // window.location.href = customURL;
 
-            // Alternative iframe approach for better reliability
-            let iframe = document.createElement("iframe");
-            iframe.style.display = "none";
-            iframe.src = customURL;
-            document.body.appendChild(iframe);
+            // // Alternative iframe approach for better reliability
+            // let iframe = document.createElement("iframe");
+            // iframe.style.display = "none";
+            // iframe.src = customURL;
+            // document.body.appendChild(iframe);
 
-            // Add visibility event listener
-            window.addEventListener("visibilitychange", handleVisibilityChange);
+            // // Add visibility event listener
+            // window.addEventListener("visibilitychange", handleVisibilityChange);
 
 
             // Set a fallback redirection ONLY if the app does not open
