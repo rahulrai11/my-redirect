@@ -137,8 +137,10 @@
 
             if (isAndroid) {
                 window.location.href = playStoreURL;
+                return
             } else if (isiOS) {
                 window.location.href = appStoreURL;
+                return
             }
 
             // Try opening the app using direct navigation
