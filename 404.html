@@ -146,22 +146,26 @@
             // Add visibility event listener
             window.addEventListener("visibilitychange", handleVisibilityChange);
 
+
+            var now = new Date().getTime();
             // Set a fallback redirection ONLY if the app does not open
             fallbackTimeout = setTimeout(() => {
-                if (!appOpened) {
+                var timeElapsed = new Date().getTime() - now;
+
+                if (!appOpened && timeElapsed < 2000) {
                     if (isAndroid) {
                         window.location.href = playStoreURL;
                     } else if (isiOS) {
                         window.location.href = appStoreURL;
                     }
                 }
-            }, 5000); // Slightly increased delay for better detection
+            }, 1500); // Slightly increased delay for better detection
         };
     </script>
 </head>
 
 <body>
-    <p>If the Bastian app is installed, it will open automatically. Otherwise, you will be redirected to download it shortly.</p>
+    <p>If the Bastian app is installed, it will open automatically. Otherwise, you will be redirected to download it shortly..</p>
 </body>
 
 </html>
