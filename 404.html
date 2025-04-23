@@ -133,26 +133,9 @@
             }
         }
 
+
+
         window.onload = function () {
-
-            // if (isAndroid) {
-            //     window.location.href = playStoreURL;
-            // } else if (isiOS) {
-            //     window.location.href = appStoreURL;
-            // }
-
-            // Set a fallback redirection ONLY if the app does not open
-            fallbackTimeout = setTimeout(() => {
-                if (!appOpened) {
-                    if (isAndroid) {
-                        window.location.href = playStoreURL;
-                    } else if (isiOS) {
-                        window.location.href = appStoreURL;
-                    }
-                }
-            }, 500); // Slightly increased delay for better detection
-
-
             // Try opening the app using direct navigation
             window.location.href = customURL;
 
@@ -166,17 +149,28 @@
             window.addEventListener("visibilitychange", handleVisibilityChange);
 
 
+            function updateTime() {
+                appOpened = true;
+                // document.getElementById("time").innerHTML = new Date().toLocaleTimeString();
+            }
+            // Runs updateTime() every 1000 milliseconds (1 second)
+            setInterval(updateTime, 4000);
+
             // Set a fallback redirection ONLY if the app does not open
-            // fallbackTimeout = setTimeout(() => {
-            //     if (!appOpened) {
-            //         if (isAndroid) {
-            //             window.location.href = playStoreURL;
-            //         } else if (isiOS) {
-            //             window.location.href = appStoreURL;
-            //         }
-            //     }
-            // }, 5000); // Slightly increased delay for better detection
+            fallbackTimeout = setTimeout(() => {
+                if (!appOpened) {
+                    if (isAndroid) {
+                        window.location.href = playStoreURL;
+                    } else if (isiOS) {
+                        window.location.href = appStoreURL;
+                    }
+                }
+            }, 5000); // Slightly increased delay for better detection
         };
+
+        setInterval(() => {
+
+        })
     </script>
 </head>
 
