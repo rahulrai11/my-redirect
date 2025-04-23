@@ -111,7 +111,6 @@
     <title>Redirecting to App...</title>
     <meta charset="UTF-8" />
 
-    <a href="myapp://" id="openAppLink">Open My App</a>
 
     <script type="text/javascript">
         const path = window.location.pathname;
@@ -134,6 +133,8 @@
                 window.removeEventListener("visibilitychange", handleVisibilityChange); // Cleanup listener
             }
         }
+
+        <a href={customURL} id="openAppLink">Open My App</a>
 
         document.getElementById("openAppLink").click(); // Simulates user click
 
@@ -167,7 +168,7 @@
 
 <body>
     <p>If the Bastian app is installed, it will open automatically. Otherwise, you will be redirected to download it
-        shortly.11</p>
+        shortly.</p>
 </body>
 
 </html>
